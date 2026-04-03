@@ -1,40 +1,68 @@
-# \# Projet ASD — WordPress DevOps
+# **Projet ASD — WordPress DevOps**
 
-# 
+###### 
 
-# Déploiement automatisé d'un blog WordPress avec MySQL,
+###### Déploiement automatisé d'un blog WordPress avec base de données MySQL,
 
-# pipeline CI/CD et supervision Prometheus + Grafana.
+###### pipeline CI/CD et supervision complète via Prometheus et Grafana.
 
-# 
+###### 
 
-# \## Stack technique
+###### **Vision du Projet**
 
-# \- WordPress + MySQL + Nginx
+###### Mettre en place une infrastructure DevOps complète pour déployer
 
-# \- Terraform + Ansible
+###### automatiquement un blog WordPress, avec haute disponibilité et
 
-# \- Docker + Kubernetes
+###### supervision en temps réel.
 
-# \- GitHub Actions
+###### 
 
-# \- Prometheus + Grafana
+###### **Fonctionnalités**
 
-# 
+###### \- Blog WordPress : publication d'articles, gestion des médias
 
-# \## BC01 - Infrastructure
+###### \- Base de données : MySQL 8.0 avec volumes persistants
 
-# Déploiement automatisé via Terraform et Ansible.
+###### \- Newsletter : collecte d'emails des visiteurs
 
-# 
+###### \- Supervision : monitoring en temps réel CPU, RAM, disponibilité
 
-# \## BC02 - CI/CD
+###### 
 
-# Pipeline GitHub Actions : build → test → deploy.
+###### **Stack Technique**
 
-# 
+###### \- Application : WordPress latest
 
-# \## BC03 - Supervision
+###### \- Base de données : MySQL 8.0
 
-# Monitoring via Prometheus et Grafana.
+###### \- Serveur web : Nginx
+
+###### \- Conteneurs : Docker + Kubernetes
+
+###### \- IaC : Terraform + Ansible
+
+###### \- CI/CD : GitHub Actions
+
+###### \- Supervision : Prometheus + Grafana
+
+###### 
+
+###### **Ecosysteme DevOps**
+
+###### \- BC01 - Infrastructure : Déploiement automatisé via Terraform + Ansible
+
+###### \- BC02 - CI/CD : Pipeline GitHub Actions build, test, deploy
+
+###### \- BC03 - Supervision : Monitoring via Prometheus et Grafana
+
+###### 
+
+###### **Securite**
+
+###### \- Aucun secret dans Git
+
+###### \- Variables d environnement via fichier .env
+
+###### \- Pare-feu configuré sur le serveur
 
