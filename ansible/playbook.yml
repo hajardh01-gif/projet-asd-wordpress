@@ -1,0 +1,22 @@
+---
+- name: Installation WordPress
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Installer Docker
+      apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+
+    - name: Installer Docker Compose
+      apt:
+        name: docker-compose
+        state: present
+
+    - name: Démarrer Docker
+      service:
+        name: docker
+        state: started
+        enabled: yes
