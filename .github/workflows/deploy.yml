@@ -11,8 +11,8 @@ jobs:
 
     steps:
       - name: Récupérer le code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Construire et déployer
         run: |
-          docker-compose -f docker/docker-compose.yml up -d --build
+          docker compose -f docker/docker-compose.yml up -d --build

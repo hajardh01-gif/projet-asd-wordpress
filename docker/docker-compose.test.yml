@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  wordpress-test:
+    image: wordpress:latest
+    ports:
+      - "8081:80"
+    environment:
+      WORDPRESS_DB_HOST: db-test
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
+      WORDPRESS_DB_NAME: wordpress_test
+    volumes:
+      - wordpress_test_data:/var/www/html
+    depends_on:
+      - db-test
+
+  db-test:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: wordpress_test
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes:
+      - db_test_data:/var/lib/mysql
+
+volumes:
+  wordpress_test_data:
+  db_test_data:

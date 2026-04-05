@@ -2,7 +2,7 @@ CAHIER DES CHARGES - PROJET ASD WORDPRESS DEVOPS
 
 Version: 1.0
 
-Date: Avril 2026
+Date: Mars 2026
 
 Projet: Infrastructure DevOps automatisee pour blog WordPress
 
@@ -433,6 +433,76 @@ Alertes configurees:
 DB\_PASSWORD=motdepasse\_fort
 
 DB\_ROOT\_PASSWORD=root\_motdepasse\_fort
+
+8\. STRATEGIE DE STOCKAGE DES DONNEES
+
+
+
+8.1 Base de donnees
+
+\- Type : MySQL 8.0 (relationnelle)
+
+\- Justification : WordPress necessite une base relationnelle pour
+
+&#x20; stocker les articles, utilisateurs et configurations
+
+\- Stockage : volume Docker nomme db\_data
+
+\- Taille estimee : 10 Go pour 1 an de production
+
+
+
+8.2 Fichiers WordPress
+
+\- Type : volume Docker nomme wordpress\_data
+
+\- Contenu : themes, plugins, medias uploades
+
+\- Taille estimee : 5 Go
+
+
+
+8.3 Sauvegardes
+
+\- Frequence : quotidienne a 2h du matin
+
+\- Outil : mysqldump via script backup.sh
+
+\- Retention : 7 jours glissants
+
+\- Emplacement : dossier /backups sur le serveur
+
+\- Test de restauration : procedure documentee ci-dessous
+
+
+
+8.4 Procedure de restauration
+
+1\. Arreter WordPress : docker compose stop wordpress
+
+2\. Restaurer la BDD : docker exec db mysql -u wordpress -p wordpress < backup.sql
+
+3\. Redemarrer : docker compose start wordpress
+
+4\. Verifier que le site fonctionne sur http://localhost:8080
+
+
+
+8.5 Droits d acces
+
+\- app\_user : lecture et ecriture sur la base wordpress
+
+\- Acces reseau limite au reseau Docker interne
+
+\- Mot de passe via variable d environnement uniquement
+
+
+
+8.6 Type de stockage utilise
+
+\- Stockage bloc : volume Docker pour MySQL (acces rapide I/O)
+
+\- Stockage fichier : volume Docker pour les medias WordPress
 
 
 
