@@ -60,7 +60,7 @@
 
 ###### **Securite**
 
-###### \- Aucun secret dans Git
+###### \- Ne laisser aucun secret dans Git
 
 ###### \- Variables d environnement via fichier .env
 
