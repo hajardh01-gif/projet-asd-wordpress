@@ -6,18 +6,17 @@ on:
       - principal
 
 jobs:
-  deploy:
+  validate:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Récupérer le code
+        uses: actions/checkout@v4
 
-    - name: Install docker-compose
-      run: |
-        sudo curl -L "https://github.com/docker/compose/releases/download/v2.17.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-        sudo chmod +x /usr/local/bin/docker-compose
-        docker-compose --version
+      - name: Valider docker-compose
+        run: |
+          docker compose -f docker/docker-compose.yml config
 
-    - name: Deploy WordPress with docker-compose
-      run: docker-compose -f docker/docker-compose.yml up -d --build
+      - name: Valider docker-compose test
+        run: |
+          docker compose -f docker/docker-compose.test.yml config
