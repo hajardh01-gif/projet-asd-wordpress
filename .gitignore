@@ -1,0 +1,11 @@
+# Variables d'environnement - NE JAMAIS COMMITER
+.env
+*.env
+docker/.env
+
+# Dossiers système
+.DS_Store
+node_modules/
+
+# Logs
+*.log
