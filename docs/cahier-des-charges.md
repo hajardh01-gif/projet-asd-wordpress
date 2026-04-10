@@ -242,13 +242,41 @@ Securisation:
 
 Environnements:
 
+Environnements:
+
+
+
 \- Developpement : local via Docker Compose
 
-\- Test : environnement isole Docker (docker-compose.test.yml)
+&#x20; Role : developpement et tests unitaires en local par le developpeur
+
+&#x20; Fichier : docker/docker-compose.yml
+
+&#x20; Acces : http://localhost:8080
+
+
+
+\- Test (pre-production) : environnement isole Docker
+
+&#x20; Role : valider que l application fonctionne avant mise en production
+
+&#x20; Fichier : docker/docker-compose.test.yml
+
+&#x20; Acces : http://localhost:8081
+
+&#x20; Declenchement : automatique via pipeline CI/CD a chaque push
+
+
 
 \- Production : cloud public via Kubernetes
 
+&#x20; Role : environnement final accessible aux utilisateurs
 
+&#x20; Fichier : kubernetes/
+
+&#x20; Acces : domaine public
+
+&#x20; Declenchement : apres validation de l environnement de test
 
 Docker:
 
