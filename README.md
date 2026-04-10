@@ -1,68 +1,168 @@
-# **Projet ASD — WordPress DevOps**
+##### **# Projet ASD — WordPress DevOps**
 
-###### 
+##### 
 
-###### Déploiement automatisé d'un blog WordPress avec base de données MySQL,
+##### **Déploiement automatisé d'un blog WordPress avec base de données MySQL,**
 
-###### pipeline CI/CD et supervision complète via Prometheus et Grafana.
+##### **pipeline CI/CD et supervision complète via Prometheus et Grafana.**
 
-###### 
+##### 
 
-###### **Vision du Projet**
+##### **## Vision du Projet**
 
-###### Mettre en place une infrastructure DevOps complète pour déployer
+##### 
 
-###### automatiquement un blog WordPress, avec haute disponibilité et
+##### **Mettre en place une infrastructure DevOps complète pour déployer**
 
-###### supervision en temps réel.
+##### **automatiquement un blog WordPress, avec haute disponibilité et**
 
-###### 
+##### **supervision en temps réel.**
 
-###### **Fonctionnalités**
+##### 
 
-###### \- Blog WordPress : publication d'articles, gestion des médias
+##### **## Statut du Projet**
 
-###### \- Base de données : MySQL 8.0 avec volumes persistants
+##### 
 
-###### \- Newsletter : collecte d'emails des visiteurs
+##### **| Composante | Statut |**
 
-###### \- Supervision : monitoring en temps réel CPU, RAM, disponibilité
+##### **|---|---|**
 
-###### 
+##### **| Dépôt GitHub + pipeline CI/CD | ✅ Opérationnel |**
 
-###### **Stack Technique**
+##### **| Docker WordPress + MySQL | ✅ Opérationnel |**
 
-###### \- Application : WordPress latest
+##### **| Image Docker Hub | ✅ Publiée automatiquement |**
 
-###### \- Base de données : MySQL 8.0
+##### **| Environnement de test | ✅ Configuré |**
 
-###### \- Serveur web : Nginx
+##### **| Terraform + Ansible | ✅ En place |**
 
-###### \- Conteneurs : Docker + Kubernetes
+##### **| Kubernetes | 🔄 En cours (S8) |**
 
-###### \- IaC : Terraform + Ansible
+##### **| Prometheus + Grafana | 🔄 À venir (S11) |**
 
-###### \- CI/CD : GitHub Actions
+##### 
 
-###### \- Supervision : Prometheus + Grafana
+##### **## Fonctionnalités**
 
-###### 
+##### 
 
-###### **Ecosysteme DevOps**
+##### **- Blog WordPress : publication d'articles, gestion des médias**
 
-###### \- BC01 - Infrastructure : Déploiement automatisé via Terraform + Ansible
+##### **- Base de données : MySQL 8.0 avec volumes persistants**
 
-###### \- BC02 - CI/CD : Pipeline GitHub Actions build, test, deploy
+##### **- Newsletter : collecte d'emails des visiteurs**
 
-###### \- BC03 - Supervision : Monitoring via Prometheus et Grafana
+##### **- Supervision : monitoring en temps réel CPU, RAM, disponibilité**
 
-###### 
+##### 
 
-###### **Securite**
+##### **## Stack Technique**
 
-###### \- Ne laisser aucun secret dans Git
+##### 
 
-###### \- Variables d environnement via fichier .env
+##### **- Application : WordPress latest**
 
-###### \- Pare-feu configuré sur le serveur
+##### **- Base de données : MySQL 8.0**
+
+##### **- Serveur web : Nginx**
+
+##### **- Conteneurs : Docker + Kubernetes**
+
+##### **- IaC : Terraform + Ansible**
+
+##### **- CI/CD : GitHub Actions**
+
+##### **- Supervision : Prometheus + Grafana**
+
+##### 
+
+##### **## Image Docker**
+
+##### 
+
+##### **```bash**
+
+##### **docker pull hajardh01/wordpress-asd:latest**
+
+##### 
+
+##### 
+
+##### **Disponible sur : https://hub.docker.com/r/hajardh01/wordpress-asd**
+
+##### 
+
+##### **## Lancer le projet en local**
+
+##### 
+
+##### **```bash**
+
+##### **# Copier les variables d'environnement**
+
+##### **cp docker/.env.example docker/.env**
+
+##### 
+
+##### **# Lancer WordPress + MySQL**
+
+##### **docker compose -f docker/docker-compose.yml up -d**
+
+##### 
+
+##### **# Accéder à WordPress**
+
+##### **http://localhost:8080**
+
+##### 
+
+##### **# Interface admin**
+
+##### **http://localhost:8080/wp-admin**
+
+##### **```**
+
+##### 
+
+##### **## Ecosystème DevOps**
+
+##### 
+
+##### **- \*\*BC01 - Infrastructure\*\* : Déploiement automatisé via Terraform + Ansible**
+
+##### **- \*\*BC02 - CI/CD\*\* : Pipeline GitHub Actions — validate → build → push Docker Hub**
+
+##### **- \*\*BC03 - Supervision\*\* : Monitoring via Prometheus et Grafana (à venir)**
+
+##### 
+
+##### **## Pipeline CI/CD**
+
+##### 
+
+##### **Chaque push sur `main` déclenche automatiquement :**
+
+##### 
+
+##### **1.  Validation docker-compose (prod + test)**
+
+##### **2.  Build image Docker**
+
+##### **3.  Push automatique sur Docker Hub**
+
+##### 
+
+##### **## Sécurité**
+
+##### 
+
+##### **- Aucun secret dans Git**
+
+##### **- Variables d'environnement via fichier .env (ignoré par .gitignore)**
+
+##### **- Secrets GitHub Actions pour Docker Hub et base de données**
+
+##### **- Pare-feu configuré sur le serveur**
 
