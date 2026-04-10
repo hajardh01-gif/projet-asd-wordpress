@@ -3,20 +3,25 @@ name: Deploy WordPress
 on:
   push:
     branches:
-      -main
+      - main
 
 jobs:
   validate:
     runs-on: ubuntu-latest
-
     steps:
       - name: Récupérer le code
         uses: actions/checkout@v4
 
       - name: Valider docker-compose
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_ROOT_PASSWORD: ${{ secrets.DB_ROOT_PASSWORD }}
         run: |
           docker compose -f docker/docker-compose.yml config
 
       - name: Valider docker-compose test
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_ROOT_PASSWORD: ${{ secrets.DB_ROOT_PASSWORD }}
         run: |
           docker compose -f docker/docker-compose.test.yml config
