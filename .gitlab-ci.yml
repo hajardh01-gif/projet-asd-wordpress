@@ -1,0 +1,15 @@
+stages:
+  - build
+  - test
+
+build-image:
+  stage: build
+  script:
+    - echo "Build Docker image WordPress"
+    - docker build -t wordpress-k8s:latest .
+
+test-app:
+  stage: test
+  script:
+    - echo "Test simple OK"
+    - docker ps
