@@ -165,4 +165,70 @@
 ##### **- Secrets GitHub Actions pour Docker Hub et base de données**
 
 ##### **- Pare-feu configuré sur le serveur**
+## 📊 Monitoring (Prometheus + Grafana)
 
+Le monitoring Kubernetes est déployé avec Helm et kube-prometheus-stack.
+
+### Accès Grafana
+
+URL :
+http://localhost:3000
+
+Utilisateur :
+admin
+
+Mot de passe :
+
+kubectl get secret -n monitoring monitoring-grafana -o jsonpath="{.data.admin-password}" | base64 --decode
+
+---
+
+### Accès Prometheus
+
+URL :
+http://localhost:9090
+
+Commande pour accéder :
+
+kubectl port-forward -n monitoring svc/monitoring-kube-prometheus-prometheus 9090:9090
+
+Prometheus permet de visualiser les métriques Kubernetes et vérifier les targets actives.
+
+---
+
+### Vérification pods monitoring
+
+kubectl get pods -n monitoring
+
+---
+
+## 🌐 Accès WordPress
+
+URL :
+http://localhost:30080
+
+WordPress est déployé sur Kubernetes avec MySQL.
+
+---
+
+## ☸ Kubernetes
+
+Commandes utiles :
+
+kubectl get pods  
+kubectl get svc  
+kubectl get pods -n monitoring  
+
+---
+
+## 🚀 CI/CD
+
+Pipeline GitHub configuré avec :
+
+.gitlab-ci.yml
+
+Pipeline :
+
+✔ build  
+✔ test  
+✔ deployment
