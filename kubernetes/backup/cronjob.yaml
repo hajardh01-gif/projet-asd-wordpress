@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mysql-backup
+  namespace: backup
+spec:
+  schedule: "0 2 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: backup
+              image: mysql:8.0
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  mysqldump -h mysql.app.svc.cluster.local \
+                    -u $MYSQL_USER \
+                    -p$MYSQL_PASSWORD \
+                    --single-transaction \
+                    $MYSQL_DATABASE | gzip > /backup/wordpress_$(date +%Y%m%d_%H%M%S).sql.gz
+                  find /backup -name "*.sql.gz" -mtime +7 -delete
+              env:
+                - name: MYSQL_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: mysql-secret
+                      key: mysql-user
+                - name: MYSQL_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: mysql-secret
+                      key: mysql-password
+                - name: MYSQL_DATABASE
+                  valueFrom:
+                    secretKeyRef:
+                      name: mysql-secret
+                      key: mysql-database
+          restartPolicy: OnFailure
