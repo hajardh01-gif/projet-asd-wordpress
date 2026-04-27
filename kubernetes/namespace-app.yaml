@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: app
+  labels:
+    project: petit-journal
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+  labels:
+    project: petit-journal
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: backup
+  labels:
+    project: petit-journal
