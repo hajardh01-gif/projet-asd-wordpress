@@ -1,0 +1,65 @@
+---
+- name: Installer UFW
+  apt:
+    name: ufw
+    state: present
+
+- name: Refuser tout le trafic entrant par defaut
+  ufw:
+    default: deny
+    direction: incoming
+
+- name: Autoriser tout le trafic sortant
+  ufw:
+    default: allow
+    direction: outgoing
+
+- name: Autoriser SSH (port 22)
+  ufw:
+    rule: allow
+    port: "22"
+    proto: tcp
+
+- name: Autoriser HTTP (port 80)
+  ufw:
+    rule: allow
+    port: "80"
+    proto: tcp
+
+- name: Autoriser HTTPS (port 443)
+  ufw:
+    rule: allow
+    port: "443"
+    proto: tcp
+
+- name: Autoriser Kubernetes API (port 6443)
+  ufw:
+    rule: allow
+    port: "6443"
+    proto: tcp
+
+- name: Activer UFW
+  ufw:
+    state: enabled
+
+- name: Desactiver connexion SSH par mot de passe
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PasswordAuthentication'
+    line: 'PasswordAuthentication no'
+    state: present
+  notify: Redemarrer SSH
+
+- name: Desactiver connexion SSH root
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PermitRootLogin'
+    line: 'PermitRootLogin no'
+    state: present
+  notify: Redemarrer SSH
+
+handlers:
+  - name: Redemarrer SSH
+    service:
+      name: sshd
+      state: restarted

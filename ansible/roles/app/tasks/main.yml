@@ -1,0 +1,39 @@
+---
+- name: Copier les manifests Kubernetes
+  copy:
+    src: "{{ playbook_dir }}/../kubernetes/"
+    dest: /opt/petit-journal/kubernetes/
+    mode: '0644'
+
+- name: Appliquer les namespaces
+  command: k3s kubectl apply -f /opt/petit-journal/kubernetes/namespace-app.yaml
+
+- name: Appliquer les secrets MySQL
+  command: k3s kubectl apply -f /opt/petit-journal/kubernetes/mysql/secret.yaml
+
+- name: Appliquer MySQL StatefulSet et Service
+  command: k3s kubectl apply -f /opt/petit-journal/kubernetes/mysql/
+
+- name: Attendre que MySQL soit pret
+  command: >
+    k3s kubectl wait --for=condition=ready pod
+    -l app=mysql -n app --timeout=120s
+
+- name: Appliquer WordPress
+  command: k3s kubectl apply -f /opt/petit-journal/kubernetes/wordpress/
+
+- name: Attendre que WordPress soit pret
+  command: >
+    k3s kubectl wait --for=condition=ready pod
+    -l app=wordpress -n app --timeout=120s
+
+- name: Appliquer le CronJob backup
+  command: k3s kubectl apply -f /opt/petit-journal/kubernetes/backup/
+
+- name: Verifier tous les pods
+  command: k3s kubectl get pods -A
+  register: pods_output
+
+- name: Afficher les pods
+  debug:
+    msg: "{{ pods_output.stdout }}"
