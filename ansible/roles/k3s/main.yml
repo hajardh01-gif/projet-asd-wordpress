@@ -1,0 +1,40 @@
+---
+- name: Verifier si K3s est deja installe
+  stat:
+    path: /usr/local/bin/k3s
+  register: k3s_binary
+
+- name: Installer K3s
+  shell: |
+    curl -sfL https://get.k3s.io | \
+    INSTALL_K3S_VERSION="{{ k3s_version }}" sh -
+  when: not k3s_binary.stat.exists
+
+- name: Attendre que K3s soit pret
+  wait_for:
+    path: /etc/rancher/k3s/k3s.yaml
+    timeout: 60
+
+- name: Creer dossier .kube pour root
+  file:
+    path: /root/.kube
+    state: directory
+    mode: '0700'
+
+- name: Copier kubeconfig
+  copy:
+    src: /etc/rancher/k3s/k3s.yaml
+    dest: /root/.kube/config
+    remote_src: yes
+    mode: '0600'
+
+- name: Verifier que le cluster repond
+  command: k3s kubectl get nodes
+  register: nodes_output
+  retries: 5
+  delay: 10
+  until: nodes_output.rc == 0
+
+- name: Afficher les noeuds du cluster
+  debug:
+    msg: "{{ nodes_output.stdout }}"

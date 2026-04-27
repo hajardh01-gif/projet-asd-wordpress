@@ -1,0 +1,29 @@
+---
+- name: Mettre a jour les paquets systeme
+  apt:
+    update_cache: yes
+    upgrade: yes
+    cache_valid_time: 3600
+
+- name: Installer les paquets de base
+  apt:
+    name:
+      - curl
+      - wget
+      - git
+      - vim
+      - htop
+      - unzip
+      - ca-certificates
+      - gnupg
+    state: present
+
+- name: Configurer le timezone
+  timezone:
+    name: Europe/Paris
+
+- name: Creer le dossier de l application
+  file:
+    path: /opt/petit-journal
+    state: directory
+    mode: '0755'

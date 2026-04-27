@@ -1,0 +1,13 @@
+---
+- name: Provisionnement complet - Le Petit Journal d'Orleans
+  hosts: prod
+  become: true
+  vars:
+    k3s_version: "v1.29.3+k3s1"
+    app_dir: "/opt/petit-journal"
+
+  roles:
+    - common
+    - security
+    - k3s
+    - app
