@@ -1,0 +1,11 @@
+
+
+project_name     = "petit-journal"
+vm_name          = "prod-petit-journal"
+app_dir          = "/opt/petit-journal"
+db_name          = "wordpress"
+db_user          = "wordpress"
+db_password      = "CHANGER_MOI"
+db_root_password = "CHANGER_MOI"
+grafana_user     = "admin"
+grafana_password = "CHANGER_MOI"
