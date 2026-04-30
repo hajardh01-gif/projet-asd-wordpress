@@ -16,3 +16,6 @@ terraform/terraform.tfstate.backup
 terraform/terraform.tfvars
 terraform/.terraform.lock.hcl
 .env.prod
+# Secrets Kubernetes - ne jamais commiter
+kubernetes/mysql/secret.yaml
+docker/.env
