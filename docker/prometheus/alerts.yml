@@ -1,0 +1,29 @@
+groups:
+  - name: petit-journal-alerts
+    rules:
+      - alert: WordPressDown
+        expr: up{job="wordpress"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "WordPress est DOWN"
+          description: "Le site Le Petit Journal est inaccessible"
+
+      - alert: RAMCritique
+        expr: (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) * 100 < 20
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "RAM disponible critique"
+          description: "Moins de 20% de RAM disponible"
+
+      - alert: DisquePlein
+        expr: (node_filesystem_avail_bytes / node_filesystem_size_bytes) * 100 < 20
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Disque presque plein"
+          description: "Moins de 20% d'espace disque disponible"
