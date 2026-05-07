@@ -22,25 +22,18 @@
 
 ##### **## Statut du Projet**
 
-##### 
-
-##### **| Composante | Statut |**
-
-##### **|---|---|**
-
-##### **| Dépôt GitHub + pipeline CI/CD | ✅ Opérationnel |**
-
-##### **| Docker WordPress + MySQL | ✅ Opérationnel |**
-
-##### **| Image Docker Hub | ✅ Publiée automatiquement |**
-
-##### **| Environnement de test | ✅ Configuré |**
-
-##### **| Terraform + Ansible | ✅ En place |**
-
-##### **| Kubernetes | 🔄 En cours (S8) |**
-
-##### **| Prometheus + Grafana | 🔄 À venir (S11) |**
+## Statut du Projet
+| Composante | Statut |
+|---|---|
+| Docker WordPress 6.8-apache + MySQL 8.0 | ✅ Opérationnel |
+| Pipeline CI/CD GitHub Actions | ✅ Opérationnel |
+| Image Docker Hub hajardh01/wordpress-asd | ✅ Publiée |
+| Environnement de test isolé | ✅ Opérationnel |
+| Terraform Fly.io + Ansible | ✅ En place |
+| Kubernetes K3s manifests | ✅ Prêts |
+| Prometheus + Grafana + Alertes | ✅ Opérationnel |
+| Scripts backup/restore MySQL | ✅ Opérationnel |
+| Sécurité secrets | ✅ Configurée |
 
 ##### 
 
@@ -62,19 +55,12 @@
 
 ##### 
 
-##### **- Application : WordPress latest**
-
-##### **- Base de données : MySQL 8.0**
-
-##### **- Serveur web : Nginx**
-
-##### **- Conteneurs : Docker + Kubernetes**
-
-##### **- IaC : Terraform + Ansible**
-
-##### **- CI/CD : GitHub Actions**
-
-##### **- Supervision : Prometheus + Grafana**
+- Application : WordPress 6.8-apache (version pinnée)
+- Base de données : MySQL 8.0
+- Conteneurs : Docker + Kubernetes K3s
+- IaC : Terraform Fly.io + Ansible
+- CI/CD : GitHub Actions
+- Supervision : Prometheus + Grafana + Alertes
 
 ##### 
 
@@ -82,15 +68,10 @@
 
 ##### 
 
-##### **```bash**
-
-##### **docker pull hajardh01/wordpress-asd:latest**
-
-##### 
-
-##### 
-
-##### **Disponible sur : https://hub.docker.com/r/hajardh01/wordpress-asd**
+```bash
+docker pull hajardh01/wordpress-asd:latest
+```
+https://hub.docker.com/r/hajardh01/wordpress-asd
 
 ##### 
 
@@ -98,17 +79,15 @@
 
 ##### 
 
-##### **```bash**
+```bash
+cp docker/.env.example docker/.env
+docker compose -f docker/docker-compose.yml up -d
+```
 
-##### **# Copier les variables d'environnement**
+- WordPress : http://localhost:8080
+- Grafana : http://localhost:3000
+- Prometheus : http://localhost:9090
 
-##### **cp docker/.env.example docker/.env**
-
-##### 
-
-##### **# Lancer WordPress + MySQL**
-
-##### **docker compose -f docker/docker-compose.yml up -d**
 
 ##### 
 
