@@ -30,40 +30,6 @@ resource "fly_ip" "prod_ipv6" {
   type = "v6"
 }
 
-# Machine Fly.io WordPress
-resource "fly_machine" "wordpress" {
-  app    = var.app_name
-  region = "cdg"
-  name   = "${var.project_name}-wordpress"
-
-  image = "wordpress:6.8-apache"
-
-  env = {
-    WORDPRESS_DB_HOST     = "localhost:3306"
-    WORDPRESS_DB_NAME     = var.db_name
-    WORDPRESS_DB_USER     = var.db_user
-    WORDPRESS_DB_PASSWORD = var.db_password
-  }
-
-  services = [
-    {
-      protocol      = "tcp"
-      internal_port = 80
-
-      ports = [
-        {
-          port     = 80
-          handlers = ["http"]
-        },
-        {
-          port     = 443
-          handlers = ["tls", "http"]
-        }
-      ]
-    }
-  ]
-}
-
 # Génération inventaire Ansible
 resource "local_file" "ansible_inventory" {
   filename = "${path.module}/../ansible/inventory.ini"
