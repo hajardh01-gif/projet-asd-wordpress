@@ -1,6 +1,8 @@
-# Dossier de Projet — Le Petit Journal d'Orléans
-**Titre Professionnel ASD TP-01414 — Niveau 6**
+# Dossier Professionnel — Le Petit Journal d'Orléans
+**Hajar Douhab — Titre Professionnel ASD TP-01414**
+**Date de soutenance : Juillet 2026**
 
+---
 ---
 
 ## 1. Compétences couvertes
