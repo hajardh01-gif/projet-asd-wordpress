@@ -268,3 +268,6 @@ Chaque **push** sur la branche **main** déclenche automatiquement :
 **Hajar Douhab**
 
 Projet réalisé dans le cadre du **Titre Professionnel Administrateur Systèmes DevOps (ASD)**.
+## CI/CD Test
+
+README updated on 05/07/2026.
